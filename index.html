@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code 快速參考表 — 繁體中文完整版</title>
+  <meta name="description" content="最完整的 Claude Code 快速參考表（繁體中文）— 鍵盤快捷鍵、斜線指令、CLI 旗標、MCP 伺服器、記憶檔案、Skills、Agents、環境變數，一頁搞定。">
+  <meta name="keywords" content="Claude Code, 快速參考, cheat sheet, Claude CLI, Anthropic, 鍵盤快捷鍵, 斜線指令, MCP, CLAUDE.md, AI 程式開發">
+  <meta name="author" content="雷蒙三十">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Claude Code 快速參考表 — 繁體中文完整版">
+  <meta property="og:description" content="所有 Claude Code 快捷鍵、指令、旗標、MCP 設定、記憶檔案和環境變數，一頁搞定。">
+  <meta property="og:site_name" content="Claude Code 快速參考表">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Code 快速參考表 — 繁體中文完整版">
+  <meta name="twitter:description" content="所有 Claude Code 快捷鍵、指令、旗標、MCP 設定、記憶檔案和環境變數，一頁搞定。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌨️</text></svg>">
+  <style>
+    /* === RESET & BASE === */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* Section colors */
+      --keyboard-bg: #EFF6FF;
+      --keyboard-header: #2563EB;
+      --slash-bg: #F5F3FF;
+      --slash-header: #7C3AED;
+      --skills-bg: #ECFDF5;
+      --skills-header: #059669;
+      --memory-bg: #FFFBEB;
+      --memory-header: #D97706;
+      --config-bg: #FFF7ED;
+      --config-header: #C2410C;
+      --workflows-bg: #FEF2F2;
+      --workflows-header: #DC2626;
+      --mcp-bg: #ECFEFF;
+      --mcp-header: #0891B2;
+      --cli-bg: #F9FAFB;
+      --cli-header: #4B5563;
+      --footer-bg: #1F2937;
+      --footer-text: #F9FAFB;
+
+      /* Typography */
+      --font-sans: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    }
+
+    html {
+      font-size: 15px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.25;
+      background: #fff;
+      color: #1F2937;
+      padding: 16px 24px;
+    }
+
+    /* === PAGE LAYOUT — 滿版 === */
+    .page {
+      width: 100%;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    /* === HEADER === */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #E5E7EB;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .header-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border: 1px solid #D1D5DB;
+      border-radius: 6px;
+      background: #F9FAFB;
+      color: #374151;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .header-btn:hover {
+      background: #F3F4F6;
+      border-color: #9CA3AF;
+      color: #111827;
+    }
+
+    .header-btn svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-meta {
+      font-size: 0.8rem;
+      color: #6B7280;
+      text-align: right;
+    }
+
+    .header-meta .version-info {
+      display: block;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .header-meta .last-updated {
+      display: block;
+      font-size: 0.75rem;
+      color: #9CA3AF;
+    }
+
+    /* === CHANGELOG === */
+    .changelog {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 1px solid #F59E0B;
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+    }
+
+    .changelog-header {
+      font-weight: 700;
+      color: #92400E;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .changelog-dismiss {
+      margin-left: auto;
+      font-size: 1rem;
+      color: #92400E;
+      cursor: pointer;
+      opacity: 0.6;
+      line-height: 1;
+    }
+
+    .changelog-dismiss:hover {
+      opacity: 1;
+    }
+
+    .changelog-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+      color: #78350F;
+      list-style: none;
+    }
+
+    .changelog-list li {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .changelog-list li::before {
+      content: "•";
+      color: #F59E0B;
+      font-weight: bold;
+    }
+
+    /* === MAIN GRID === */
+    .main-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    /* === SECTION BASE === */
+    .section {
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-keyboard-mcp > .section:last-child,
+    .section-slash-memory > .section:last-child,
+    .section-workflows-config > .section:last-child,
+    .section-skills-cli > .section:last-child {
+      flex: 1;
+    }
+
+    .section-header {
+      padding: 6px 10px;
+      color: white;
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .section-content {
+      padding: 8px 12px;
+      flex: 1;
+    }
+
+    /* === SUB-SECTION === */
+    .sub-header {
+      font-weight: 700;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: #374151;
+      margin-top: 6px;
+      margin-bottom: 2px;
+      padding-bottom: 2px;
+      border-bottom: 1px dotted rgba(0,0,0,0.15);
+    }
+
+    .sub-header:first-child {
+      margin-top: 0;
+    }
+
+    /* === KEY-VALUE ROWS === */
+    .row {
+      display: flex;
+      gap: 6px;
+      padding: 2px 0;
+      line-height: 1.3;
+    }
+
+    .key {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1F2937;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .desc {
+      font-size: 0.85rem;
+      color: #4B5563;
+      flex: 1;
+    }
+
+    /* === KEYCAP STYLE === */
+    .keycap {
+      display: inline-block;
+      background: linear-gradient(180deg, #FAFAFA 0%, #E5E7EB 100%);
+      border: 1px solid #D1D5DB;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #374151;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1), inset 0 -1px 0 rgba(0,0,0,0.05);
+      margin-right: 1px;
+    }
+
+    /* === NEW BADGE === */
+    .badge-new {
+      display: inline-block;
+      background: #EF4444;
+      color: white;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-left: 4px;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* === SECTION SPECIFIC COLORS === */
+    .section-keyboard { background: var(--keyboard-bg); }
+    .section-keyboard .section-header { background: var(--keyboard-header); }
+
+    .section-slash { background: var(--slash-bg); }
+    .section-slash .section-header { background: var(--slash-header); }
+
+    .section-skills { background: var(--skills-bg); }
+    .section-skills .section-header { background: var(--skills-header); }
+
+    .section-memory { background: var(--memory-bg); }
+    .section-memory .section-header { background: var(--memory-header); }
+
+    .section-workflows { background: var(--workflows-bg); }
+    .section-workflows .section-header { background: var(--workflows-header); }
+
+    .section-mcp { background: var(--mcp-bg); }
+    .section-mcp .section-header { background: var(--mcp-header); }
+
+    .section-cli { background: var(--cli-bg); }
+    .section-cli .section-header { background: var(--cli-header); }
+
+    .section-config { background: var(--config-bg); }
+    .section-config .section-header { background: var(--config-header); }
+
+    /* === GRID PLACEMENT === */
+    .section-keyboard-mcp {
+      grid-column: 1;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .section-slash-memory {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .section-workflows-config {
+      grid-column: 3;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .section-skills-cli {
+      grid-column: 4;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      margin-top: 12px;
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .footer-label {
+      font-weight: 700;
+      color: #9CA3AF;
+      margin-right: 4px;
+    }
+
+    .footer-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .footer-item code {
+      font-family: var(--font-mono);
+      background: rgba(255,255,255,0.1);
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    .footer-sep {
+      color: #6B7280;
+    }
+
+    /* === PRINT STYLES === */
+    @media print {
+      html { font-size: 9px !important; }
+      body { padding: 0; background: white; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .page { max-width: none; width: 100%; }
+      .main-grid { gap: 4px; }
+      .section-keyboard-mcp, .section-slash-memory, .section-workflows-config, .section-skills-cli { gap: 4px; }
+      .section { break-inside: avoid; page-break-inside: avoid; }
+      .section-content { break-inside: avoid; page-break-inside: avoid; }
+      .sub-header { break-after: avoid; page-break-after: avoid; }
+      .row { break-inside: avoid; page-break-inside: avoid; }
+      .os-toggle, .header-buttons, .changelog { display: none !important; }
+      .footer { margin-top: 4px; padding: 4px 8px; background: #374151 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+
+    /* === RESPONSIVE === */
+    @media screen and (max-width: 1200px) {
+      html { font-size: 13px; }
+      .main-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        align-items: start;
+      }
+      .section-keyboard-mcp { grid-column: 1; grid-row: 1; }
+      .section-slash-memory { grid-column: 2; grid-row: 1; }
+      .section-workflows-config { grid-column: 1; grid-row: 2; }
+      .section-skills-cli { grid-column: 2; grid-row: 2; }
+    }
+
+    @media screen and (max-width: 700px) {
+      html { font-size: 14px; }
+      body { padding: 8px 12px; }
+      .header h1 { font-size: 1.3rem; }
+      .header { flex-wrap: wrap; gap: 6px; }
+      .header-left { width: 100%; }
+      .main-grid {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+      .section-keyboard-mcp, .section-slash-memory, .section-workflows-config, .section-skills-cli {
+        grid-column: 1;
+        grid-row: auto;
+      }
+      .footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+      .footer-sep { display: none; }
+      .changelog-list { flex-direction: column; gap: 4px; }
+      .sub-header {
+        font-size: 0.7rem;
+        font-style: normal;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #9CA3AF;
+      }
+    }
+
+    /* === OS TOGGLE === */
+    .os-toggle {
+      display: flex;
+      border: 1px solid #9CA3AF;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #F3F4F6;
+    }
+
+    .os-btn {
+      background: #fff;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      line-height: 1;
+      color: #6B7280;
+      transition: background 0.15s, color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .os-btn + .os-btn {
+      border-left: 1px solid #9CA3AF;
+    }
+
+    .os-btn.active {
+      background: #111827;
+      color: #fff;
+    }
+
+    .os-btn:hover:not(.active) {
+      background: #F3F4F6;
+    }
+
+    /* === COMPACT MULTI-COLUMN === */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 16px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0 12px;
+    }
+
+    @media screen and (max-width: 500px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <h1>Claude Code 快速參考表</h1>
+        <div class="header-buttons">
+          <a class="header-btn" href="https://cc.storyfox.cz/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            原站（英文）
+          </a>
+          <a class="header-btn" href="https://github.com/raymond-mond30/claude-code-cheatsheet-zh" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="os-toggle" id="osToggle">
+          <button class="os-btn active" data-os="mac" title="Mac 快捷鍵"><svg width="14" height="14" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57.8-155.5-127.4c-58.4-83-106.3-211.5-106.3-334.2 0-196.5 127.8-300.9 253.3-300.9 66.8 0 122.4 43.4 164.1 43.4 39.5 0 101.1-46 176.2-46 28.5 0 130.9 2.6 198.3 99.1zm-169.5-92.8c31.2-37 52.4-88.1 52.4-139.3 0-7.1-.6-14.3-1.9-20.1-50 1.6-109.2 33.3-145 75.1-25.8 29.3-52.4 79.8-52.4 131.6 0 7.8.6 15.6 1.3 18.2 2.6.6 6.4 1.3 10.3 1.3 44.7 0 101.1-30.5 135.3-66.8z"/></svg></button>
+          <button class="os-btn" data-os="win" title="Windows 快捷鍵"><svg width="14" height="14" viewBox="0 0 88 88" fill="currentColor"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 71.48l-.026-25.55zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349l-.011 41.34-47.318-6.678-.066-34.739z"/></svg></button>
+        </div>
+        <div class="header-meta">
+          <span class="version-info">Claude Code v2.1.92</span>
+          <span class="last-updated">更新日期：2026 年 4 月 4 日</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CHANGELOG -->
+    <div class="changelog">
+      <div class="changelog-header"><a href="https://code.claude.com/docs/en/changelog" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #92400E;">📋 近期更新</a> <span class="changelog-dismiss" onclick="event.stopPropagation(); this.closest('.changelog').remove()">✕</span></div>
+      <ul class="changelog-list">
+        <li><code>forceRemoteSettingsRefresh</code> 策略 — 啟動時強制刷新遠端設定 (v2.1.92)</li>
+        <li>互動式 Bedrock 設定精靈（登入畫面）(v2.1.92)</li>
+        <li><code>/cost</code> 新增各模型 + 快取命中明細 (v2.1.92)</li>
+        <li><code>/release-notes</code> 改為互動式版本選擇器 (v2.1.92)</li>
+        <li>移除 <code>/tag</code> 和 <code>/vim</code> 指令 (v2.1.92)</li>
+        <li>Write 工具大檔案 diff 速度提升 60% (v2.1.92)</li>
+      </ul>
+    </div>
+
+    <!-- MAIN GRID -->
+    <main class="main-grid">
+
+      <!-- 第一欄：鍵盤快捷鍵 + MCP 伺服器 -->
+      <div class="section-keyboard-mcp">
+      <section class="section section-keyboard">
+        <div class="section-header">⌨️ 鍵盤快捷鍵</div>
+        <div class="section-content">
+          <div class="sub-header">一般控制</div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">C</span></span> <span class="desc">取消輸入／中斷生成</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">D</span></span> <span class="desc">結束對話</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">L</span></span> <span class="desc">清除畫面</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">O</span></span> <span class="desc">切換詳細／逐字稿模式</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">R</span></span> <span class="desc">反向搜尋歷史</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">G</span></span> <span class="desc">在編輯器中開啟提示詞</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">X</span> <span class="keycap">Ctrl</span><span class="keycap">E</span></span> <span class="desc">在編輯器中開啟（別名）</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">B</span></span> <span class="desc">將任務移至背景</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">T</span></span> <span class="desc">切換任務清單</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">V</span></span> <span class="desc">貼上圖片（[Image #N] 標籤）</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">X</span> <span class="keycap">Ctrl</span><span class="keycap">K</span></span> <span class="desc">終止背景 Agent</span></div>
+          <div class="row"><span class="key"><span class="keycap">Esc</span><span class="keycap">Esc</span></span> <span class="desc">回溯或摘要</span></div>
+
+          <div class="sub-header">模式切換</div>
+          <div class="row"><span class="key"><span class="keycap">Shift</span><span class="keycap">Tab</span></span> <span class="desc">循環切換權限模式</span></div>
+          <div class="row"><span class="key"><span class="keycap">Alt</span><span class="keycap">P</span></span> <span class="desc">切換模型</span></div>
+          <div class="row"><span class="key"><span class="keycap">Alt</span><span class="keycap">T</span></span> <span class="desc">切換思考模式</span></div>
+          <div class="row"><span class="key"><span class="keycap">Alt</span><span class="keycap">O</span></span> <span class="desc">切換快速模式<span class="badge-new" data-added="2026-03-26">NEW</span></span></div>
+
+          <div class="sub-header">輸入</div>
+          <div class="row"><span class="key"><span class="keycap">\</span><span class="keycap">Enter</span></span> <span class="desc">換行（快速）</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">J</span></span> <span class="desc">換行（控制序列）</span></div>
+
+          <div class="sub-header">前綴符號</div>
+          <div class="row"><span class="key">/</span> <span class="desc">斜線指令</span></div>
+          <div class="row"><span class="key">!</span> <span class="desc">直接執行 Bash</span></div>
+          <div class="row"><span class="key">@</span> <span class="desc">檔案提及 + 自動完成</span></div>
+
+          <div class="sub-header">Session 選擇器</div>
+          <div class="row"><span class="key"><span class="keycap">↑↓</span></span> <span class="desc">瀏覽</span></div>
+          <div class="row"><span class="key"><span class="keycap">←→</span></span> <span class="desc">展開／收合</span></div>
+          <div class="row"><span class="key"><span class="keycap">P</span></span> <span class="desc">預覽</span></div>
+          <div class="row"><span class="key"><span class="keycap">R</span></span> <span class="desc">重新命名</span></div>
+          <div class="row"><span class="key"><span class="keycap">/</span></span> <span class="desc">搜尋</span></div>
+          <div class="row"><span class="key"><span class="keycap">A</span></span> <span class="desc">所有專案</span></div>
+          <div class="row"><span class="key"><span class="keycap">B</span></span> <span class="desc">目前分支</span></div>
+
+          <div class="sub-header">逐字稿模式 (Ctrl+O)</div>
+          <div class="row"><span class="key"><span class="keycap">/</span></span> <span class="desc">搜尋逐字稿</span></div>
+          <div class="row"><span class="key"><span class="keycap">N</span> / <span class="keycap">⇧</span><span class="keycap">N</span></span> <span class="desc">下一個／上一個結果</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">E</span></span> <span class="desc">切換顯示全部</span></div>
+          <div class="row"><span class="key"><span class="keycap">Q</span> / <span class="keycap">Esc</span></span> <span class="desc">離開逐字稿</span></div>
+        </div>
+      </section>
+
+      <!-- MCP 伺服器 -->
+      <section class="section section-mcp">
+        <div class="section-header">🔌 MCP 伺服器</div>
+        <div class="section-content">
+          <div class="sub-header">新增伺服器</div>
+          <div class="row"><span class="key">--transport http</span> <span class="desc">遠端 HTTP（推薦）</span></div>
+          <div class="row"><span class="key">--transport stdio</span> <span class="desc">本機程序</span></div>
+          <div class="row"><span class="key">--transport sse</span> <span class="desc">遠端 SSE</span></div>
+          <div class="sub-header">作用範圍</div>
+          <div class="row"><span class="key">Local</span> <span class="desc">~/.claude.json（僅個人）</span></div>
+          <div class="row"><span class="key">Project</span> <span class="desc">.mcp.json（共享／版控）</span></div>
+          <div class="row"><span class="key">User</span> <span class="desc">~/.claude.json（全域）</span></div>
+          <div class="sub-header">管理</div>
+          <div class="row"><span class="key">/mcp</span> <span class="desc">互動式管理介面</span></div>
+          <div class="row"><span class="key">claude mcp list</span> <span class="desc">列出所有伺服器</span></div>
+          <div class="row"><span class="key">claude mcp serve</span> <span class="desc">將 CC 作為 MCP 伺服器</span></div>
+          <div class="row"><span class="key">Elicitation</span> <span class="desc">伺服器可在任務中請求輸入</span></div>
+          <div class="row"><span class="key">2KB 上限</span> <span class="desc">工具描述 + 伺服器指令限制</span></div>
+          <div class="row"><span class="key">maxResultSizeChars</span> <span class="desc">_meta 標註覆寫（最高 500K）<span class="badge-new" data-added="2026-04-03">NEW</span></span></div>
+        </div>
+      </section>
+      </div>
+
+      <!-- 第二欄：斜線指令 + 記憶與檔案 -->
+      <div class="section-slash-memory">
+      <section class="section section-slash">
+        <div class="section-header">⚡ 斜線指令</div>
+        <div class="section-content">
+          <div class="sub-header">Session 管理</div>
+          <div class="row"><span class="key">/clear</span> <span class="desc">清除對話</span></div>
+          <div class="row"><span class="key">/compact [焦點]</span> <span class="desc">壓縮上下文</span></div>
+          <div class="row"><span class="key">/resume</span> <span class="desc">恢復／切換 Session</span></div>
+          <div class="row"><span class="key">/rename [名稱]</span> <span class="desc">命名目前 Session</span></div>
+          <div class="row"><span class="key">/branch [名稱]</span> <span class="desc">分支對話（/fork 別名）</span></div>
+          <div class="row"><span class="key">/cost</span> <span class="desc">Token 用量（各模型 + 快取明細）<span class="badge-new" data-added="2026-04-04">NEW</span></span></div>
+          <div class="row"><span class="key">/context</span> <span class="desc">視覺化上下文（格狀圖）</span></div>
+          <div class="row"><span class="key">/diff</span> <span class="desc">互動式差異檢視器</span></div>
+          <div class="row"><span class="key">/copy [N]</span> <span class="desc">複製最近（或第 N 筆）回應</span></div>
+          <div class="row"><span class="key">/rewind</span> <span class="desc">回溯對話／程式碼檢查點</span></div>
+          <div class="row"><span class="key">/export</span> <span class="desc">匯出對話</span></div>
+
+          <div class="sub-header">設定</div>
+          <div class="row"><span class="key">/config</span> <span class="desc">開啟設定</span></div>
+          <div class="row"><span class="key">/model [模型]</span> <span class="desc">切換模型（←→ 調整 effort）</span></div>
+          <div class="row"><span class="key">/fast [on|off]</span> <span class="desc">切換快速模式</span></div>
+          <div class="row"><span class="key">/theme</span> <span class="desc">更換色彩主題</span></div>
+          <div class="row"><span class="key">/permissions</span> <span class="desc">查看／更新權限</span></div>
+          <div class="row"><span class="key">/effort [等級]</span> <span class="desc">設定 effort（low/medium/high/max/auto）</span></div>
+          <div class="row"><span class="key">/color [顏色]</span> <span class="desc">設定提示列顏色</span></div>
+          <div class="row"><span class="key">/keybindings</span> <span class="desc">自訂鍵盤快捷鍵</span></div>
+          <div class="row"><span class="key">/terminal-setup</span> <span class="desc">設定終端機按鍵綁定</span></div>
+
+          <div class="sub-header">工具</div>
+          <div class="row"><span class="key">/init</span> <span class="desc">建立 CLAUDE.md</span></div>
+          <div class="row"><span class="key">/memory</span> <span class="desc">編輯 CLAUDE.md 檔案</span></div>
+          <div class="row"><span class="key">/mcp</span> <span class="desc">管理 MCP 伺服器</span></div>
+          <div class="row"><span class="key">/hooks</span> <span class="desc">管理 Hooks</span></div>
+          <div class="row"><span class="key">/skills</span> <span class="desc">列出可用 Skills</span></div>
+          <div class="row"><span class="key">/agents</span> <span class="desc">管理 Agents</span></div>
+          <div class="row"><span class="key">/chrome</span> <span class="desc">Chrome 整合</span></div>
+          <div class="row"><span class="key">/reload-plugins</span> <span class="desc">熱載入外掛</span></div>
+          <div class="row"><span class="key">/add-dir &lt;路徑&gt;</span> <span class="desc">新增工作目錄</span></div>
+
+          <div class="sub-header">特殊指令</div>
+          <div class="row"><span class="key">/powerup</span> <span class="desc">互動式功能教學<span class="badge-new" data-added="2026-04-01">NEW</span></span></div>
+          <div class="row"><span class="key">/btw &lt;問題&gt;</span> <span class="desc">附帶問題（不佔上下文）</span></div>
+          <div class="row"><span class="key">/plan [描述]</span> <span class="desc">計畫模式（+ 自動啟動）</span></div>
+          <div class="row"><span class="key">/loop [間隔]</span> <span class="desc">排程週期任務</span></div>
+          <div class="row"><span class="key">/voice</span> <span class="desc">按鍵說話語音（20 種語言）</span></div>
+          <div class="row"><span class="key">/doctor</span> <span class="desc">診斷安裝狀態</span></div>
+          <div class="row"><span class="key">/pr-comments [PR]</span> <span class="desc">擷取 GitHub PR 留言</span></div>
+          <div class="row"><span class="key">/stats</span> <span class="desc">使用統計與偏好</span></div>
+          <div class="row"><span class="key">/insights</span> <span class="desc">分析 Session 報告</span></div>
+          <div class="row"><span class="key">/desktop</span> <span class="desc">在桌面版繼續</span></div>
+          <div class="row"><span class="key">/remote-control</span> <span class="desc">橋接至 claude.ai/code（/rc）</span></div>
+          <div class="row"><span class="key">/usage</span> <span class="desc">方案限額與速率狀態</span></div>
+          <div class="row"><span class="key">/schedule</span> <span class="desc">雲端排程任務</span></div>
+          <div class="row"><span class="key">/security-review</span> <span class="desc">變更的安全性分析</span></div>
+          <div class="row"><span class="key">/help</span> <span class="desc">顯示說明 + 指令</span></div>
+          <div class="row"><span class="key">/feedback</span> <span class="desc">提交回饋（別名：/bug）</span></div>
+          <div class="row"><span class="key">/release-notes</span> <span class="desc">互動式版本更新日誌<span class="badge-new" data-added="2026-04-04">NEW</span></span></div>
+          <div class="row"><span class="key">/stickers</span> <span class="desc">訂購貼紙！🎉</span></div>
+        </div>
+      </section>
+
+      <!-- 記憶與檔案 -->
+      <section class="section section-memory">
+        <div class="section-header">📁 記憶與檔案</div>
+        <div class="section-content">
+          <div class="sub-header">CLAUDE.md 位置</div>
+          <div class="row"><span class="key">./CLAUDE.md</span> <span class="desc">專案（團隊共享）</span></div>
+          <div class="row"><span class="key">~/.claude/CLAUDE.md</span> <span class="desc">個人（所有專案）</span></div>
+          <div class="row"><span class="key">/etc/claude-code/</span> <span class="desc">受管理（組織層級）</span></div>
+          <div class="sub-header">規則與匯入</div>
+          <div class="row"><span class="key">.claude/rules/*.md</span> <span class="desc">專案規則</span></div>
+          <div class="row"><span class="key">~/.claude/rules/*.md</span> <span class="desc">使用者規則</span></div>
+          <div class="row"><span class="key">paths: frontmatter</span> <span class="desc">路徑限定規則</span></div>
+          <div class="row"><span class="key">@path/to/file</span> <span class="desc">在 CLAUDE.md 中匯入</span></div>
+          <div class="sub-header">自動記憶</div>
+          <div class="row"><span class="key">~/.claude/projects/&lt;專案&gt;/memory/</span></div>
+          <div class="row"><span class="desc">MEMORY.md + 主題檔案，自動載入（25KB/200 行上限）</span></div>
+        </div>
+      </section>
+      </div>
+
+      <!-- 第三欄：工作流程與技巧 + 設定與環境 -->
+      <div class="section-workflows-config">
+      <section class="section section-workflows">
+        <div class="section-header">🧠 工作流程與技巧</div>
+        <div class="section-content">
+          <div class="sub-header">計畫模式</div>
+          <div class="row"><span class="key"><span class="keycap">Shift</span><span class="keycap">Tab</span></span> <span class="desc">一般 → 自動接受 → 計畫</span></div>
+          <div class="row"><span class="key">--permission-mode plan</span> <span class="desc">以計畫模式啟動</span></div>
+          <div class="sub-header">思考與 Effort</div>
+          <div class="row"><span class="key"><span class="keycap">Alt</span><span class="keycap">T</span></span> <span class="desc">切換思考開／關</span></div>
+          <div class="row"><span class="key">"ultrathink"</span> <span class="desc">單回合最大 effort</span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">O</span></span> <span class="desc">檢視思考過程（詳細模式）</span></div>
+          <div class="row"><span class="key">/effort</span> <span class="desc">○ low · ◐ medium · ● high · ★ max</span></div>
+          <div class="sub-header">自動模式被拒</div>
+          <div class="row"><span class="key">/permissions → Recent</span> <span class="desc">按 <span class="keycap">R</span> 重試被拒操作<span class="badge-new" data-added="2026-04-01">NEW</span></span></div>
+          <div class="sub-header">Git Worktrees</div>
+          <div class="row"><span class="key">--worktree name</span> <span class="desc">每個功能獨立分支</span></div>
+          <div class="row"><span class="key">isolation: worktree</span> <span class="desc">Agent 在獨立 worktree 運行</span></div>
+          <div class="row"><span class="key">sparsePaths</span> <span class="desc">僅 checkout 需要的目錄</span></div>
+          <div class="row"><span class="key">/batch</span> <span class="desc">自動建立 worktrees</span></div>
+          <div class="sub-header">語音模式</div>
+          <div class="row"><span class="key">/voice</span> <span class="desc">啟用按鍵說話</span></div>
+          <div class="row"><span class="key"><span class="keycap">Space</span>（按住）</span> <span class="desc">錄音，放開傳送</span></div>
+          <div class="row"><span class="key">20 種語言</span> <span class="desc">EN、ES、FR、DE、CZ、PL…</span></div>
+          <div class="sub-header">上下文管理</div>
+          <div class="row"><span class="key">/context</span> <span class="desc">用量 + 最佳化建議</span></div>
+          <div class="row"><span class="key">/compact [焦點]</span> <span class="desc">聚焦壓縮</span></div>
+          <div class="row"><span class="key">自動壓縮</span> <span class="desc">約 95% 容量觸發（抖動偵測：3 次）<span class="badge-new" data-added="2026-04-01">NEW</span></span></div>
+          <div class="row"><span class="key">1M 上下文</span> <span class="desc">Opus 4.6（Max/Team/Enterprise）</span></div>
+          <div class="row"><span class="key">CLAUDE.md</span> <span class="desc">壓縮後仍保留！</span></div>
+          <div class="sub-header">Session 進階操作</div>
+          <div class="row"><span class="key">claude -c</span> <span class="desc">繼續上次對話</span></div>
+          <div class="row"><span class="key">claude -r "名稱"</span> <span class="desc">按名稱恢復</span></div>
+          <div class="row"><span class="key">/btw 問題</span> <span class="desc">附帶提問，不佔上下文</span></div>
+          <div class="sub-header">SDK／Headless</div>
+          <div class="row"><span class="key">claude -p "查詢"</span> <span class="desc">非互動模式</span></div>
+          <div class="row"><span class="key">--output-format json</span> <span class="desc">結構化輸出</span></div>
+          <div class="row"><span class="key">--max-budget-usd 5</span> <span class="desc">費用上限</span></div>
+          <div class="row"><span class="key">cat file | claude -p</span> <span class="desc">管線輸入</span></div>
+          <div class="sub-header">排程與遠端</div>
+          <div class="row"><span class="key">/loop 5m msg</span> <span class="desc">週期性任務</span></div>
+          <div class="row"><span class="key">/rc</span> <span class="desc">遠端控制（預設主機名前綴）<span class="badge-new" data-added="2026-04-04">NEW</span></span></div>
+          <div class="row"><span class="key">--remote</span> <span class="desc">在 claude.ai 上開啟 Web Session</span></div>
+        </div>
+      </section>
+
+      <!-- 設定與環境 -->
+      <section class="section section-config">
+        <div class="section-header">⚙️ 設定與環境</div>
+        <div class="section-content">
+          <div class="sub-header">設定檔</div>
+          <div class="row"><span class="key">~/.claude/settings.json</span> <span class="desc">使用者設定</span></div>
+          <div class="row"><span class="key">.claude/settings.json</span> <span class="desc">專案（共享）</span></div>
+          <div class="row"><span class="key">.claude/settings.local.json</span> <span class="desc">僅限本機</span></div>
+          <div class="row"><span class="key">~/.claude.json</span> <span class="desc">OAuth、MCP、狀態</span></div>
+          <div class="row"><span class="key">.mcp.json</span> <span class="desc">專案 MCP 伺服器</span></div>
+          <div class="row"><span class="key">managed-settings.d/</span> <span class="desc">組織策略片段（Drop-in）</span></div>
+          <div class="sub-header">重要設定</div>
+          <div class="row"><span class="key">modelOverrides</span> <span class="desc">映射模型選擇器 → 自訂 ID</span></div>
+          <div class="row"><span class="key">autoMemoryDirectory</span> <span class="desc">自訂記憶目錄</span></div>
+          <div class="row"><span class="key">worktree.sparsePaths</span> <span class="desc">Sparse checkout 目錄</span></div>
+          <div class="row"><span class="key">sandbox.failIfUnavailable</span> <span class="desc">沙盒失敗則退出</span></div>
+          <div class="row"><span class="key">hooks: if</span> <span class="desc">條件式 Hooks（權限規則語法）</span></div>
+          <div class="row"><span class="key">PermissionDenied</span> <span class="desc">Hook：自動模式被拒絕<span class="badge-new" data-added="2026-03-31">NEW</span></span></div>
+          <div class="row"><span class="key">showThinkingSummaries</span> <span class="desc">選擇啟用（預設關閉）<span class="badge-new" data-added="2026-03-31">NEW</span></span></div>
+          <div class="row"><span class="key">allowedChannelPlugins</span> <span class="desc">管理員頻道外掛白名單</span></div>
+          <div class="row"><span class="key">hooks: "defer"</span> <span class="desc">暫停 Headless → 稍後恢復</span></div>
+          <div class="row"><span class="key">disableSkillShellExec</span> <span class="desc">禁止 Skills/外掛中的 !`cmd`<span class="badge-new" data-added="2026-04-03">NEW</span></span></div>
+          <div class="row"><span class="key">forceRemoteSettingsRefresh</span> <span class="desc">強制刷新：阻擋啟動直到取得最新設定<span class="badge-new" data-added="2026-04-04">NEW</span></span></div>
+          <div class="sub-header">重要環境變數</div>
+          <div class="row"><span class="key">ANTHROPIC_API_KEY</span></div>
+          <div class="row"><span class="key">ANTHROPIC_MODEL</span></div>
+          <div class="row"><span class="key">CLAUDE_CODE_EFFORT_LEVEL</span> <span class="desc">low/medium/high/max/auto</span></div>
+          <div class="row"><span class="key">MAX_THINKING_TOKENS</span> <span class="desc">0=關閉</span></div>
+          <div class="row"><span class="key">ANTHROPIC_CUSTOM_MODEL_OPTION</span> <span class="desc">自訂 /model 選項</span></div>
+          <div class="row"><span class="key">CLAUDE_CODE_SUBPROCESS_ENV_SCRUB</span> <span class="desc">從子程序移除憑證</span></div>
+          <div class="row"><span class="key">CLAUDE_STREAM_IDLE_TIMEOUT_MS</span> <span class="desc">串流逾時看門狗（預設 90s）</span></div>
+          <div class="row"><span class="key">CLAUDE_CODE_NO_FLICKER</span> <span class="desc">替代畫面渲染（=1）<span class="badge-new" data-added="2026-03-31">NEW</span></span></div>
+          <div class="row"><span class="key">MCP_CONNECTION_NONBLOCKING</span> <span class="desc">在 <code>-p</code> 模式跳過 MCP 等待<span class="badge-new" data-added="2026-04-01">NEW</span></span></div>
+          <div class="row"><span class="key">CLAUDECODE</span> <span class="desc">偵測 CC Shell 環境（=1）</span></div>
+        </div>
+      </section>
+      </div>
+
+      <!-- 第四欄：Skills 與 Agents + CLI -->
+      <div class="section-skills-cli">
+      <section class="section section-skills">
+        <div class="section-header">🔧 Skills 與 Agents</div>
+        <div class="section-content">
+          <div class="sub-header">內建 Skills</div>
+          <div class="row"><span class="key">/simplify</span> <span class="desc">程式碼審查（3 個平行 Agent）</span></div>
+          <div class="row"><span class="key">/batch</span> <span class="desc">大規模平行變更（5-30 worktrees）</span></div>
+          <div class="row"><span class="key">/debug [描述]</span> <span class="desc">從除錯日誌排錯</span></div>
+          <div class="row"><span class="key">/loop [間隔]</span> <span class="desc">週期性排程任務</span></div>
+          <div class="row"><span class="key">/claude-api</span> <span class="desc">載入 API + SDK 參考</span></div>
+
+          <div class="sub-header">自訂 Skill 位置</div>
+          <div class="row"><span class="key">.claude/skills/&lt;名稱&gt;/</span> <span class="desc">專案 Skills</span></div>
+          <div class="row"><span class="key">~/.claude/skills/&lt;名稱&gt;/</span> <span class="desc">個人 Skills</span></div>
+
+          <div class="sub-header">Skill Frontmatter</div>
+          <div class="row"><span class="key">description</span> <span class="desc">自動觸發條件</span></div>
+          <div class="row"><span class="key">allowed-tools</span> <span class="desc">跳過權限提示</span></div>
+          <div class="row"><span class="key">model</span> <span class="desc">覆寫 Skill 使用的模型</span></div>
+          <div class="row"><span class="key">effort</span> <span class="desc">覆寫 effort 等級</span></div>
+          <div class="row"><span class="key">paths: [globs]</span> <span class="desc">路徑限定（YAML 列表）<span class="badge-new" data-added="2026-03-26">NEW</span></span></div>
+          <div class="row"><span class="key">context: fork</span> <span class="desc">在子 Agent 中執行</span></div>
+          <div class="row"><span class="key">$ARGUMENTS</span> <span class="desc">使用者輸入預留位</span></div>
+          <div class="row"><span class="key">${CLAUDE_SKILL_DIR}</span> <span class="desc">Skill 所在目錄</span></div>
+          <div class="row"><span class="key">!`cmd`</span> <span class="desc">動態上下文注入</span></div>
+          <div class="row"><span class="key">plugin bin/</span> <span class="desc">隨附可執行檔供 Bash 工具使用<span class="badge-new" data-added="2026-04-03">NEW</span></span></div>
+
+          <div class="sub-header">內建 Agents</div>
+          <div class="row"><span class="key">Explore</span> <span class="desc">快速唯讀（Haiku）</span></div>
+          <div class="row"><span class="key">Plan</span> <span class="desc">計畫模式研究</span></div>
+          <div class="row"><span class="key">General</span> <span class="desc">完整工具，複雜任務</span></div>
+          <div class="row"><span class="key">Bash</span> <span class="desc">獨立上下文的終端機</span></div>
+
+          <div class="sub-header">Agent Frontmatter</div>
+          <div class="row"><span class="key">permissionMode</span> <span class="desc">default/acceptEdits/plan/dontAsk/bypassPermissions</span></div>
+          <div class="row"><span class="key">isolation: worktree</span> <span class="desc">在 Git worktree 中執行</span></div>
+          <div class="row"><span class="key">memory: user|project|local</span> <span class="desc">持久記憶</span></div>
+          <div class="row"><span class="key">background: true</span> <span class="desc">背景任務</span></div>
+          <div class="row"><span class="key">maxTurns</span> <span class="desc">限制 Agent 回合數</span></div>
+          <div class="row"><span class="key">initialPrompt</span> <span class="desc">第一回合自動提交</span></div>
+          <div class="row"><span class="key">SendMessage</span> <span class="desc">恢復 Agent（取代 resume）</span></div>
+          <div class="row"><span class="key">@agent-name</span> <span class="desc">提及命名子 Agent<span class="badge-new" data-added="2026-03-31">NEW</span></span></div>
+        </div>
+      </section>
+
+      <!-- CLI 指令與旗標 -->
+      <section class="section section-cli">
+        <div class="section-header">🖥️ CLI 指令與旗標</div>
+        <div class="section-content">
+          <div class="sub-header">核心指令</div>
+          <div class="row"><span class="key">claude</span> <span class="desc">互動模式</span></div>
+          <div class="row"><span class="key">claude "問題"</span> <span class="desc">帶提示詞啟動</span></div>
+          <div class="row"><span class="key">claude -p "問題"</span> <span class="desc">Headless 模式</span></div>
+          <div class="row"><span class="key">claude -c</span> <span class="desc">繼續上次</span></div>
+          <div class="row"><span class="key">claude -r "名稱"</span> <span class="desc">恢復 Session</span></div>
+          <div class="row"><span class="key">claude update</span> <span class="desc">更新</span></div>
+          <div class="sub-header">重要旗標</div>
+          <div class="row"><span class="key">--model</span> <span class="desc">指定模型</span></div>
+          <div class="row"><span class="key">-w</span> <span class="desc">Git worktree</span></div>
+          <div class="row"><span class="key">-n / --name</span> <span class="desc">Session 名稱</span></div>
+          <div class="row"><span class="key">--add-dir</span> <span class="desc">新增目錄</span></div>
+          <div class="row"><span class="key">--agent</span> <span class="desc">使用 Agent</span></div>
+          <div class="row"><span class="key">--allowedTools</span> <span class="desc">預先核准工具</span></div>
+          <div class="row"><span class="key">--output-format</span> <span class="desc">json/stream</span></div>
+          <div class="row"><span class="key">--json-schema</span> <span class="desc">結構化輸出</span></div>
+          <div class="row"><span class="key">--max-turns</span> <span class="desc">限制回合數</span></div>
+          <div class="row"><span class="key">--max-budget-usd</span> <span class="desc">費用上限</span></div>
+          <div class="row"><span class="key">--console</span> <span class="desc">透過 Anthropic Console 認證</span></div>
+          <div class="row"><span class="key">Bedrock 精靈</span> <span class="desc">登入時互動式 AWS 設定<span class="badge-new" data-added="2026-04-04">NEW</span></span></div>
+          <div class="row"><span class="key">--verbose</span> <span class="desc">詳細模式</span></div>
+          <div class="row"><span class="key">--bare</span> <span class="desc">最小化 Headless（無 hooks/LSP）</span></div>
+          <div class="row"><span class="key">--channels</span> <span class="desc">權限中繼／MCP 推送</span></div>
+          <div class="row"><span class="key">--remote</span> <span class="desc">Web Session</span></div>
+          <div class="row"><span class="key">--effort</span> <span class="desc">low/medium/high/max</span></div>
+          <div class="row"><span class="key">--permission-mode</span> <span class="desc">plan/default/…</span></div>
+          <div class="row"><span class="key">--dangerously-skip-permissions</span> <span class="desc">跳過所有權限提示 ⚠️</span></div>
+          <div class="row"><span class="key">--chrome</span> <span class="desc">Chrome 整合</span></div>
+          <div class="row"><span class="key">PowerShell 工具</span> <span class="desc">Windows 預覽版<span class="badge-new" data-added="2026-03-26">NEW</span></span></div>
+        </div>
+      </section>
+      </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-row">
+        <span class="footer-label">權限模式：</span>
+        <span class="footer-item"><code>default</code> 會提示</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>acceptEdits</code> 自動接受編輯</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>plan</code> 唯讀</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>dontAsk</code> 非允許即拒絕</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>bypassPermissions</code> 跳過全部</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>--dangerously-skip-permissions</code> CLI 旗標</span>
+      </div>
+      <div class="footer-row">
+        <span class="footer-label">重要環境變數：</span>
+        <span class="footer-item"><code>ANTHROPIC_API_KEY</code></span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>ANTHROPIC_MODEL</code></span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>CLAUDE_CODE_EFFORT_LEVEL</code>（low/medium/high/max/auto）</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>MAX_THINKING_TOKENS</code>（0=關閉）</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code>（預設 32K）</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>CLAUDE_CODE_DISABLE_CRON</code></span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB</code>（移除憑證）</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>CLAUDE_STREAM_IDLE_TIMEOUT_MS</code>（預設 90s）</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-item"><code>CLAUDE_CODE_NO_FLICKER</code>（替代畫面）</span>
+      </div>
+      <div class="footer-row" style="margin-top: 4px; padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.15); justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.75rem; color: #9CA3AF;">翻譯自 <a href="https://cc.storyfox.cz/" target="_blank" style="color: #9CA3AF; text-decoration: none; border-bottom: 1px dotted #6B7280;">cc.storyfox.cz</a>（原作者 <a href="https://x.com/phasE89" target="_blank" style="color: #9CA3AF; text-decoration: none; border-bottom: 1px dotted #6B7280;">@phasE89</a>）</span>
+        <span style="font-size: 0.75rem; color: #6B7280;">繁體中文版 by <a href="https://www.lifehacker.tw" target="_blank" style="color: #9CA3AF; text-decoration: none; border-bottom: 1px dotted #6B7280;">雷蒙三十</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- OS Toggle Script -->
+  <script>
+    (function() {
+      var toggle = document.getElementById('osToggle');
+      var btns = toggle.querySelectorAll('.os-btn');
+      function detectOS() {
+        var p = navigator.platform || '';
+        var ua = navigator.userAgent || '';
+        if (/Mac|iPhone|iPod|iPad/.test(p) || /Mac/.test(ua)) return 'mac';
+        return 'win';
+      }
+      if (localStorage.getItem('cc-os') && !localStorage.getItem('cc-os-manual')) {
+        localStorage.removeItem('cc-os');
+      }
+      var saved = localStorage.getItem('cc-os') || detectOS();
+
+      function apply(os) {
+        btns.forEach(function(b) { b.classList.toggle('active', b.dataset.os === os); });
+        document.querySelectorAll('.keycap').forEach(function(keycap) {
+          var text = keycap.textContent.trim();
+          if (text === 'Alt' || text === '⌥') {
+            keycap.textContent = (os === 'mac') ? '⌥' : 'Alt';
+          } else if (text === 'Shift' || text === '⇧') {
+            keycap.textContent = (os === 'mac') ? '⇧' : 'Shift';
+          }
+        });
+        localStorage.setItem('cc-os', os);
+      }
+
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function() { localStorage.setItem('cc-os-manual', '1'); apply(btn.dataset.os); });
+      });
+      apply(saved);
+    })();
+  </script>
+
+  <!-- NEW Badge Auto-hide (8 days) -->
+  <script>
+    (function() {
+      var now = new Date();
+      document.querySelectorAll('.badge-new[data-added]').forEach(function(el) {
+        var added = new Date(el.getAttribute('data-added'));
+        if ((now - added) / 86400000 > 8) el.style.display = 'none';
+      });
+    })();
+  </script>
+</body>
+</html>
