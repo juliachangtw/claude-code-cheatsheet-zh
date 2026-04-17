@@ -552,8 +552,8 @@
           <button class="os-btn" data-os="win" title="Windows 快捷鍵"><svg width="14" height="14" viewBox="0 0 88 88" fill="currentColor"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 71.48l-.026-25.55zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349l-.011 41.34-47.318-6.678-.066-34.739z"/></svg></button>
         </div>
         <div class="header-meta">
-          <span class="version-info">Claude Code v2.1.101</span>
-          <span class="last-updated">更新日期：2026 年 4 月 12 日</span>
+          <span class="version-info">Claude Code v2.1.112</span>
+          <span class="last-updated">更新日期：2026 年 4 月 17 日</span>
         </div>
       </div>
     </header>
@@ -562,12 +562,15 @@
     <div class="changelog">
       <div class="changelog-header"><a href="https://code.claude.com/docs/en/changelog" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #92400E;">📋 近期更新</a> <span class="changelog-dismiss" onclick="event.stopPropagation(); this.closest('.changelog').remove()">✕</span></div>
       <ul class="changelog-list">
-        <li><code>/team-onboarding</code> 從本地使用記錄生成團隊入門指南 (v2.1.101)</li>
-        <li><code>/ultraplan</code> 自動建立雲端環境，在瀏覽器 Session 草擬計畫並遠端執行 (v2.1.101)</li>
-        <li>OS CA 憑證預設受信任；企業 TLS Proxy 免額外設定（<code>CLAUDE_CODE_CERT_STORE=bundled</code> 可還原）(v2.1.101)</li>
-        <li>Monitor 工具：串流背景指令碼的事件輸出 (v2.1.98)</li>
-        <li><code>CLAUDE_CODE_PERFORCE_MODE</code> Perforce 工作流程支援（唯讀檔案自動提示 p4 edit）(v2.1.98)</li>
-        <li><code>/agents</code> 新增「執行中」與「函式庫」分頁，支援快速啟動與檢查 (v2.1.98)</li>
+        <li>Claude Opus 4.7 新增 <code>xhigh</code> effort 等級 — 介於 <code>high</code> 與 <code>max</code> 之間，可透過 <code>/effort</code>、<code>--effort</code> 與模型選擇器使用；<code>/effort</code> 不帶參數時會開啟可用方向鍵調整的互動式滑桿<span class="badge-new" data-added="2026-04-17">NEW</span></li>
+        <li><code>/ultrareview [PR#]</code> — 以多 Agent 平行分析進行雲端程式碼全面審查<span class="badge-new" data-added="2026-04-17">NEW</span></li>
+        <li><code>/theme</code> 新增「Auto（跟隨終端機）」選項，自動對應終端機的深／淺色模式<span class="badge-new" data-added="2026-04-17">NEW</span></li>
+        <li><code>/less-permission-prompts</code> Skill — 掃描對話並為 <code>.claude/settings.json</code> 提出優先權限白名單建議<span class="badge-new" data-added="2026-04-17">NEW</span></li>
+        <li>Plan 檔案改以 prompt 命名（例如 <code>fix-auth-race-snug-otter.md</code>），取代隨機字串<span class="badge-new" data-added="2026-04-17">NEW</span></li>
+        <li><code>Ctrl+U</code> 清空整個輸入緩衝區、<code>Ctrl+Y</code> 還原；逐字稿檢視器底部新增 <code>[</code>（傾印至 scrollback）與 <code>v</code>（在編輯器開啟）<span class="badge-new" data-added="2026-04-17">NEW</span></li>
+        <li>Auto 模式不再需要 <code>--enable-auto-mode</code>；Max 訂閱者使用 Opus 4.7 即可啟用<span class="badge-new" data-added="2026-04-17">NEW</span></li>
+        <li>Windows PowerShell 工具開始推送 — 以 <code>CLAUDE_CODE_USE_POWERSHELL_TOOL</code> 加入；Linux/macOS 設 <code>CLAUDE_CODE_USE_POWERSHELL_TOOL=1</code> 啟用（需 PATH 有 <code>pwsh</code>）<span class="badge-new" data-added="2026-04-17">NEW</span></li>
+        <li><code>/tui fullscreen</code> 在同一對話中啟用無閃爍渲染；<code>/tui</code> 指令與 <code>tui</code> 設定為新增項 (v2.1.110)</li>
       </ul>
     </div>
 
@@ -584,6 +587,8 @@
           <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">D</span></span> <span class="desc">結束對話</span></div>
           <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">L</span></span> <span class="desc">清除畫面</span></div>
           <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">O</span></span> <span class="desc">切換詳細／逐字稿／焦點模式<span class="badge-new" data-added="2026-04-08">NEW</span></span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">U</span></span> <span class="desc">清空整個輸入緩衝區<span class="badge-new" data-added="2026-04-17">NEW</span></span></div>
+          <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">Y</span></span> <span class="desc">還原已清空的輸入<span class="badge-new" data-added="2026-04-17">NEW</span></span></div>
           <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">R</span></span> <span class="desc">反向搜尋歷史</span></div>
           <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">G</span></span> <span class="desc">在編輯器中開啟提示詞</span></div>
           <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">X</span> <span class="keycap">Ctrl</span><span class="keycap">E</span></span> <span class="desc">在編輯器中開啟（別名）</span></div>
@@ -662,15 +667,17 @@
           <div class="row"><span class="key">/diff</span> <span class="desc">互動式差異檢視器</span></div>
           <div class="row"><span class="key">/copy [N]</span> <span class="desc">複製最近（或第 N 筆）回應</span></div>
           <div class="row"><span class="key">/rewind</span> <span class="desc">回溯對話／程式碼檢查點</span></div>
+          <div class="row"><span class="key">/undo</span> <span class="desc">/rewind 的別名<span class="badge-new" data-added="2026-04-15">NEW</span></span></div>
+          <div class="row"><span class="key">/recap</span> <span class="desc">回來時摘要 Session 上下文<span class="badge-new" data-added="2026-04-15">NEW</span></span></div>
           <div class="row"><span class="key">/export</span> <span class="desc">匯出對話</span></div>
 
           <div class="sub-header">設定</div>
           <div class="row"><span class="key">/config</span> <span class="desc">開啟設定</span></div>
-          <div class="row"><span class="key">/model [模型]</span> <span class="desc">切換模型（←→ 調整 effort）</span></div>
+          <div class="row"><span class="key">/model [模型]</span> <span class="desc">切換模型（←→ 調整 effort）<span class="badge-new" data-added="2026-04-15">NEW</span></span></div>
           <div class="row"><span class="key">/fast [on|off]</span> <span class="desc">切換快速模式</span></div>
-          <div class="row"><span class="key">/theme</span> <span class="desc">更換色彩主題</span></div>
+          <div class="row"><span class="key">/theme</span> <span class="desc">更換色彩主題 — 含「Auto（跟隨終端機）」深／淺色選項<span class="badge-new" data-added="2026-04-17">NEW</span></span></div>
           <div class="row"><span class="key">/permissions</span> <span class="desc">查看／更新權限</span></div>
-          <div class="row"><span class="key">/effort [等級]</span> <span class="desc">設定 effort（low/medium/high/max/auto）</span></div>
+          <div class="row"><span class="key">/effort [等級]</span> <span class="desc">設定 effort（low/medium/high/xhigh/max）；不帶參數時開啟方向鍵互動式滑桿<span class="badge-new" data-added="2026-04-17">NEW</span></span></div>
           <div class="row"><span class="key">/color [顏色]</span> <span class="desc">設定提示列顏色</span></div>
           <div class="row"><span class="key">/keybindings</span> <span class="desc">自訂鍵盤快捷鍵</span></div>
           <div class="row"><span class="key">/terminal-setup</span> <span class="desc">設定終端機按鍵綁定</span></div>
@@ -692,7 +699,10 @@
           <div class="row"><span class="key">/btw &lt;問題&gt;</span> <span class="desc">附帶問題（不佔上下文）</span></div>
           <div class="row"><span class="key">/plan [描述]</span> <span class="desc">計畫模式（+ 自動啟動）</span></div>
           <div class="row"><span class="key">/ultraplan</span> <span class="desc">在瀏覽器 Session 草擬計畫，自動建立雲端環境<span class="badge-new" data-added="2026-04-12">NEW</span></span></div>
-          <div class="row"><span class="key">/loop [間隔]</span> <span class="desc">排程週期任務</span></div>
+          <div class="row"><span class="key">/ultrareview [PR#]</span> <span class="desc">雲端程式碼審查 — 多 Agent 平行分析<span class="badge-new" data-added="2026-04-17">NEW</span></span></div>
+          <div class="row"><span class="key">/focus</span> <span class="desc">切換焦點模式（僅全螢幕）<span class="badge-new" data-added="2026-04-16">NEW</span></span></div>
+          <div class="row"><span class="key">/less-permission-prompts</span> <span class="desc">新增白名單以減少權限提示<span class="badge-new" data-added="2026-04-16">NEW</span></span></div>
+          <div class="row"><span class="key">/loop [間隔]</span> <span class="desc">排程週期任務（/proactive 別名）<span class="badge-new" data-added="2026-04-16">NEW</span></span></div>
           <div class="row"><span class="key">/voice</span> <span class="desc">按鍵說話語音（20 種語言）</span></div>
           <div class="row"><span class="key">/doctor</span> <span class="desc">診斷安裝狀態</span></div>
           <div class="row"><span class="key">/pr-comments [PR]</span> <span class="desc">擷取 GitHub PR 留言</span></div>
@@ -740,6 +750,7 @@
           <div class="sub-header">計畫模式</div>
           <div class="row"><span class="key"><span class="keycap">Shift</span><span class="keycap">Tab</span></span> <span class="desc">一般 → 自動接受 → 計畫</span></div>
           <div class="row"><span class="key">--permission-mode plan</span> <span class="desc">以計畫模式啟動</span></div>
+          <div class="row"><span class="key">Plan 檔名</span> <span class="desc">以 prompt 命名（例：<code>fix-auth-race-snug-otter.md</code>）<span class="badge-new" data-added="2026-04-17">NEW</span></span></div>
           <div class="sub-header">思考與 Effort</div>
           <div class="row"><span class="key"><span class="keycap">Alt</span><span class="keycap">T</span></span> <span class="desc">切換思考開／關</span></div>
           <div class="row"><span class="key">"ultrathink"</span> <span class="desc">單回合最大 effort</span></div>
@@ -797,6 +808,7 @@
           <div class="row"><span class="key">worktree.sparsePaths</span> <span class="desc">Sparse checkout 目錄</span></div>
           <div class="row"><span class="key">sandbox.failIfUnavailable</span> <span class="desc">沙盒失敗則退出</span></div>
           <div class="row"><span class="key">hooks: if</span> <span class="desc">條件式 Hooks（權限規則語法）</span></div>
+          <div class="row"><span class="key">DISABLE_PROMPT_CACHING*</span> <span class="desc">停用 prompt caching 時啟動會警告<span class="badge-new" data-added="2026-04-15">NEW</span></span></div>
           <div class="row"><span class="key">PermissionDenied</span> <span class="desc">Hook：自動模式被拒絕<span class="badge-new" data-added="2026-03-31">NEW</span></span></div>
           <div class="row"><span class="key">showThinkingSummaries</span> <span class="desc">選擇啟用（預設關閉）<span class="badge-new" data-added="2026-03-31">NEW</span></span></div>
           <div class="row"><span class="key">allowedChannelPlugins</span> <span class="desc">管理員頻道外掛白名單</span></div>
@@ -807,8 +819,12 @@
           <div class="sub-header">重要環境變數</div>
           <div class="row"><span class="key">ANTHROPIC_API_KEY</span></div>
           <div class="row"><span class="key">ANTHROPIC_MODEL</span></div>
-          <div class="row"><span class="key">CLAUDE_CODE_EFFORT_LEVEL</span> <span class="desc">low/medium/high/max/auto</span></div>
+          <div class="row"><span class="key">CLAUDE_CODE_EFFORT_LEVEL</span> <span class="desc">low/medium/high/xhigh/max/auto</span></div>
           <div class="row"><span class="key">MAX_THINKING_TOKENS</span> <span class="desc">0=關閉</span></div>
+          <div class="row"><span class="key">ENABLE_PROMPT_CACHING_1H</span> <span class="desc">啟用 1 小時 prompt cache TTL<span class="badge-new" data-added="2026-04-15">NEW</span></span></div>
+          <div class="row"><span class="key">FORCE_PROMPT_CACHING_5M</span> <span class="desc">強制 5 分鐘 prompt cache TTL<span class="badge-new" data-added="2026-04-15">NEW</span></span></div>
+          <div class="row"><span class="key">CLAUDE_CODE_ENABLE_AWAY_SUMMARY</span> <span class="desc">停用遙測時仍強制產生回來時的 recap<span class="badge-new" data-added="2026-04-15">NEW</span></span></div>
+          <div class="row"><span class="key">CLAUDE_CODE_USE_POWERSHELL_TOOL</span> <span class="desc">啟用 Windows PowerShell 工具（Linux/macOS 設 =1，需 pwsh 在 PATH）<span class="badge-new" data-added="2026-04-17">NEW</span></span></div>
           <div class="row"><span class="key">ANTHROPIC_CUSTOM_MODEL_OPTION</span> <span class="desc">自訂 /model 選項</span></div>
           <div class="row"><span class="key">CLAUDE_CODE_SUBPROCESS_ENV_SCRUB</span> <span class="desc">從子程序移除憑證</span></div>
           <div class="row"><span class="key">CLAUDE_STREAM_IDLE_TIMEOUT_MS</span> <span class="desc">串流逾時看門狗（預設 90s）</span></div>
@@ -830,6 +846,7 @@
         <div class="section-header">🔧 Skills 與 Agents</div>
         <div class="section-content">
           <div class="sub-header">內建 Skills</div>
+          <div class="row"><span class="key">Skill tool</span> <span class="desc">發現內建斜線指令（/init、/review、/security-review…）<span class="badge-new" data-added="2026-04-15">NEW</span></span></div>
           <div class="row"><span class="key">/simplify</span> <span class="desc">程式碼審查（3 個平行 Agent）</span></div>
           <div class="row"><span class="key">/batch</span> <span class="desc">大規模平行變更（5-30 worktrees）</span></div>
           <div class="row"><span class="key">/debug [描述]</span> <span class="desc">從除錯日誌排錯</span></div>
